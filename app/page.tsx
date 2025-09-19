@@ -20,10 +20,11 @@ export default function Home() {
   const fetchMovies = async () => {
     try {
       setLoading(true);
+      setError(null);
       const data = await api.getMovies();
       setMovies(data);
     } catch (err) {
-      setError('Failed to load movies. Please try again later.');
+      setError('Failed to load movies. Please make sure the API server is running on http://localhost:5000');
       console.error('Error fetching movies:', err);
     } finally {
       setLoading(false);
