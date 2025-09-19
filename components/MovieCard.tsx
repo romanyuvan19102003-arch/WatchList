@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Star, Eye, EyeOff, Edit, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function MovieCard({ movie, onDelete }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -18,9 +19,10 @@ export default function MovieCard({ movie, onDelete }) {
     setIsDeleting(true);
     try {
       await onDelete(movie.id);
+      toast.success(`"${movie.title}" has been deleted successfully`);
     } catch (error) {
       console.error('Error deleting movie:', error);
-      alert('Failed to delete movie');
+      toast.error('Failed to delete movie. Please try again.');
     } finally {
       setIsDeleting(false);
     }

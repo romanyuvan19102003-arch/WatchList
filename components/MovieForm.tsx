@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function MovieForm({ movie, onSubmit, isEditing = false }) {
   const router = useRouter();
@@ -23,10 +24,19 @@ export default function MovieForm({ movie, onSubmit, isEditing = false }) {
 
     try {
       await onSubmit(formData);
+      toast.success(
+        isEditing 
+          ? `"${formData.title}" has been updated successfully` 
+          : `"${formData.title}" has been added to your watchlist`
+      );
       router.push('/');
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Failed to save movie');
+      toast.error(
+        isEditing 
+          ? 'Failed to update movie. Please try again.' 
+          : 'Failed to add movie. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }

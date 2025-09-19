@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '../../../lib/api';
 import { ArrowLeft, Star, Calendar, User, Film, Eye, EyeOff, Edit, Trash2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function MovieDetails() {
   const params = useParams();
@@ -41,10 +42,11 @@ export default function MovieDetails() {
     setIsDeleting(true);
     try {
       await api.deleteMovie(movie.id);
+      toast.success(`"${movie.title}" has been deleted successfully`);
       router.push('/');
     } catch (err) {
       console.error('Error deleting movie:', err);
-      alert('Failed to delete movie');
+      toast.error('Failed to delete movie. Please try again.');
       setIsDeleting(false);
     }
   };

@@ -70,6 +70,11 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  /* Toast variables */
+  --toast-bg: hsl(var(--background));
+  --toast-color: hsl(var(--foreground));
+  --toast-border: hsl(var(--border));
 }
 
 @layer base {
